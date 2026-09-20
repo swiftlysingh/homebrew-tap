@@ -1,0 +1,25 @@
+class ExcalidrawCli < Formula
+  desc "CLI for creating Excalidraw flowcharts programmatically"
+  homepage "https://github.com/swiftlysingh/excalidraw-cli"
+  url "https://registry.npmjs.org/@swiftlysingh/excalidraw-cli/-/excalidraw-cli-1.2.0.tgz"
+  sha256 "ed06123ee9c57db5bb270a6b87fcc07c061093c6a94590a6974591067dd9afc0"
+  license "MIT"
+
+  depends_on "node"
+
+  def install
+    system "npm", "install", *std_npm_args
+    bin.install_symlink Dir["#{libexec}/bin/*"]
+    man1.install "man/excalidraw-cli.1"
+  end
+
+  test do
+    assert_match version.to_s, shell_output("#{bin}/excalidraw-cli --version")
+    system bin/"excalidraw-cli", "create", "--inline", "[A] -> [B]", "-o", "flow.excalidraw"
+    assert_equal "excalidraw", JSON.parse((testpath/"flow.excalidraw").read).fetch("type")
+    system bin/"excalidraw-cli", "convert", "flow.excalidraw", "--format", "svg"
+    assert_match "<svg", (testpath/"flow.svg").read
+    system bin/"excalidraw-cli", "convert", "flow.excalidraw", "--format", "png"
+    assert_equal "\x89PNG\r\n\x1a\n".b, (testpath/"flow.png").binread[0, 8]
+  end
+end
