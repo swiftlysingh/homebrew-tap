@@ -1,8 +1,8 @@
 class ExcalidrawCli < Formula
   desc "CLI for creating Excalidraw flowcharts programmatically"
   homepage "https://github.com/swiftlysingh/excalidraw-cli"
-  url "https://registry.npmjs.org/@swiftlysingh/excalidraw-cli/-/excalidraw-cli-1.2.0.tgz"
-  sha256 "ed06123ee9c57db5bb270a6b87fcc07c061093c6a94590a6974591067dd9afc0"
+  url "https://registry.npmjs.org/@swiftlysingh/excalidraw-cli/-/excalidraw-cli-1.4.0.tgz"
+  sha256 "2f95f839017870f8533027ed9747901161c90109179aa4c312227ab9a4b5ecf9"
   license "MIT"
 
   depends_on "node"
